@@ -1,6 +1,7 @@
+from typing import List
+
 input_file = "day01/input.txt"
 sample_file = "day01/sample.txt"
-
 
 def calculate_password(data_file) -> int:
     result = 0
@@ -32,32 +33,48 @@ def calculate_password2(data_file) -> int:
 
     start_position = 50
     current_position = start_position
-    movement = {'L': int(-1), 'R': int(1)}
+    movement = {'L': -1, 'R': 1}
     rotations = 0
 
     for entry in data:
-        clicks = (movement[entry[0]] * entry[1])
-        rotations = 0
+        direction, steps = entry[0], entry[1]
+        clicks = movement[direction] * steps
+
         last_position = current_position
-        current_position = current_position + clicks
-    
-        if (clicks > 0):
-            rotations += current_position // MAX
-        elif (clicks < 0 and current_position > -99):
-            rotations += 1
+        distance = abs(clicks)
+
+        if clicks == 0:
+            cycle = 0
         else:
-            rotations += abs(current_position) // MAX
-        
-        current_position = current_position % MAX
+            # Abstand bis zur ersten Nullüberquerung
+            if clicks > 0:
+                # clockwise
+                dist_to_first_zero = MAX if current_position == 0 else (MAX - current_position)
+            else:
+                # counterclockwise
+                dist_to_first_zero = MAX if current_position == 0 else current_position
 
-        print('{:2} >> {}{:2} >> {:2} >> {:2}'.format(last_position, entry[0], entry[1], current_position, rotations))
+            if distance < dist_to_first_zero:
+                # we stay in this circle
+                cycle = 0
+            else:
+                remaining = distance - dist_to_first_zero
+                # only calculate the turns minus the first distance to zero (which we add manually)
+                cycle = 1 + remaining // MAX
 
-        result += rotations
+        new_pos = current_position + clicks
+        current_position = new_pos % MAX
 
-    return result
+        rotations += cycle
+
+        print('{:3} {} {:4} {:3} {:1}'.format(
+            last_position, direction, clicks, current_position, cycle
+        ))
+
+    return rotations
 
 if __name__ == "__main__":
     # print(calculate_password(sample_file))
     # print(calculate_password(input_file))
-    print(calculate_password2(sample_file))
-    # print(calculate_password2(input_file))
+    # print(calculate_password2(sample_file))
+    print(calculate_password2(input_file))
