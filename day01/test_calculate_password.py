@@ -7,7 +7,7 @@ class TestCalculatePassword(unittest.TestCase):
         self.assertEqual(this_day.calculate_password(this_day.sample_file), 3)
 
     def testInputPart1(self):
-        self.assertEqual(this_day.calculate_password(this_day.input_file), 0)
+        self.assertEqual(this_day.calculate_password(this_day.input_file), 1043)
         
     def testSamplePart2(self):
         self.assertEqual(this_day.calculate_something2(this_day.sample_file), 0)
