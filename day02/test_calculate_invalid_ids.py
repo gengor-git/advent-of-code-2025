@@ -10,8 +10,8 @@ class TestSomethingSomething(unittest.TestCase):
         self.assertEqual(this_day.calculate_invalid_ids(this_day.input_file), 44854383294)
         
     def testSamplePart2(self):
-        self.assertEqual(this_day.calculate_something2(this_day.sample_file), 11)
+        self.assertEqual(this_day.calculate_ivalid_ids2(this_day.sample_file), 4174379265)
 
     def testInputPart2(self):
-        self.assertEqual(this_day.calculate_something2(this_day.input_file), 3246517)
+        self.assertEqual(this_day.calculate_ivalid_ids2(this_day.input_file), 55647141923)
         
