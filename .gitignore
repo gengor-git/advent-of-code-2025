@@ -205,3 +205,8 @@ cython_debug/
 marimo/_static/
 marimo/_lsp/
 __marimo__/
+
+# My AoC stuff to ignore
+day*/input.txt
+day*/sample.txt
+day*/other*.py
