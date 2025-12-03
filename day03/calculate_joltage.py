@@ -8,9 +8,8 @@ def calculate_joltage_pt1(data_file) -> int:
     result = 0
     data = [[int(s) for s in line] for line in open(data_file).read().strip().splitlines()]
     for entry in data:
-        result += get_joltage(entry)
+        result += get_joltage_large(entry, 2)
     return result
-
 
 def calculate_joltage_pt2(data_file) -> int:
     result = 0
@@ -20,6 +19,10 @@ def calculate_joltage_pt2(data_file) -> int:
     return result
 
 def find_max_index(lst, start=0):
+    '''Finds the index of the max value in a list of integers.
+    @lst: the list of integer values.
+    @start: the first index to look for (in case we want to skip parts at the beginning).
+    '''
     max_index, max_value = start, lst[start]
     for index, value in enumerate(lst):
         if index < start:
@@ -28,28 +31,12 @@ def find_max_index(lst, start=0):
             max_value, max_index = value, index
     return max_index
 
-def get_joltage(bank: List[int]) -> int:
-    joltage = 0
-    '''
-    finde von 0 bis len-1 die höchste Zahl.
-    suche in ab der Stelle (max  Zahl) bis len die höchste Zahl.
-    '''
-    pri_max = find_max_index(bank[:-1])
-    sec_max = find_max_index(bank, pri_max+1)
-
-    print('---\n{}'.format(bank))
-    print('max {} is at {}'.format(bank[pri_max], pri_max))
-    print('Searching after {} in {}'.format(pri_max, bank[(pri_max+1):]))
-    print('sec_max {} is at {}'.format(bank[sec_max], sec_max))
-
-    joltage = bank[pri_max] * 10 + bank[sec_max]
-    print('Joltage: {}'.format(joltage))
-    print('')
-
-    return joltage
-
 
 def get_joltage_large(bank: List[int], pack_size=12) -> int:
+    '''Returns the joltage for a battery bank with dynamic size.
+    @bank: the battery bank to select the best batteries from.
+    @pack_size: the size of the result battery amount to pick from the pack.
+    '''
     remaining_size = pack_size
     length = len(bank)
     joltage = 0
