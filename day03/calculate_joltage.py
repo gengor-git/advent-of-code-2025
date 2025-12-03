@@ -22,6 +22,8 @@ def find_max_index(lst, start=0):
     '''Finds the index of the max value in a list of integers.
     @lst: the list of integer values.
     @start: the first index to look for (in case we want to skip parts at the beginning).
+    Returns:
+        int: the index in the list of the max value.
     '''
     max_index, max_value = start, lst[start]
     for index, value in enumerate(lst):
@@ -36,6 +38,8 @@ def get_joltage_large(bank: List[int], pack_size=12) -> int:
     '''Returns the joltage for a battery bank with dynamic size.
     @bank: the battery bank to select the best batteries from.
     @pack_size: the size of the result battery amount to pick from the pack.
+    Returns:
+        int: the calculated joltage from the max batteries.
     '''
     remaining_size = pack_size
     length = len(bank)
